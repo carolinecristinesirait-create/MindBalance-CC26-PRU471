@@ -1,6 +1,9 @@
 """Reusable Streamlit user-interface components."""
 from __future__ import annotations
 
+from html import escape
+
+import streamlit as st
 import streamlit as st
 
 from mindbalance.config import APP_NAME, APP_VERSION, CLASS_COLORS, NAV_ITEMS
@@ -151,28 +154,46 @@ def physiological_index_cards(indexes: list[dict[str, object]]) -> None:
 
     st.html("".join(cards))
 
-def guidance_panel(items: list[dict[str, str]], empty_text: str) -> None:
-    """Render the prominent restorative-strategy panel used after assessment."""
+def guidance_panel(
+    items: list[dict[str, str]],
+    empty_text: str,
+) -> None:
+    """Render restorative guidance directly as HTML."""
+
     if not items:
         st.caption(empty_text)
         return
-    html = [
+
+    cards = [
         "<section class='mb-guidance-panel'>",
-        "<div class='mb-guidance-heading'><span></span><h3>Actionable Guidance &amp; Restorative Strategies</h3></div>",
+        "<div class='mb-guidance-heading'><span></span>",
+        "<h3>Actionable Guidance &amp; "
+        "Restorative Strategies</h3></div>",
         "<div class='mb-guidance-list'>",
     ]
-    for item in items:
-        html.append(
-            f"""
-            <div class="mb-guidance-item">
-              <div class="mb-guidance-dot"></div>
-              <div><strong>{item['title']}</strong><p>{item['detail']}</p></div>
-            </div>
-            """
-        )
-    html.extend(["</div>", "</section>"])
-    st.markdown("".join(html), unsafe_allow_html=True)
 
+    for item in items:
+        title = escape(
+            str(item.get("title", "Guidance"))
+        )
+        detail = escape(
+            str(item.get("detail", ""))
+        )
+
+        cards.append(
+            '<div class="mb-guidance-item">'
+            '<div class="mb-guidance-dot"></div>'
+            f'<div><strong>{title}</strong>'
+            f'<p>{detail}</p></div>'
+            '</div>'
+        )
+
+    cards.extend([
+        "</div>",
+        "</section>",
+    ])
+
+    st.html("".join(cards))
 
 def section_title(title: str, subtitle: str | None = None, number: str | None = None) -> None:
     number_html = f"<span class='mb-section-number'>{number}</span>" if number else ""
@@ -183,23 +204,49 @@ def section_title(title: str, subtitle: str | None = None, number: str | None = 
     )
 
 
-def list_cards(items: list[dict[str, str]], empty_text: str) -> None:
+def list_cards(
+    items: list[dict[str, str]],
+    empty_text: str,
+) -> None:
+    """Render signal cards directly as HTML."""
+
     if not items:
         st.caption(empty_text)
         return
-    html = ["<div class='mb-list-grid'>"]
-    for item in items:
-        html.append(
-            f"""
-            <div class="mb-list-card">
-              <div class="mb-list-icon">{icon(item.get('icon', 'check-circle'))}</div>
-              <div><strong>{item['title']}</strong><p>{item['detail']}</p></div>
-            </div>
-            """
-        )
-    html.append("</div>")
-    st.markdown("".join(html), unsafe_allow_html=True)
 
+    cards = [
+        "<div class='mb-list-grid'>"
+    ]
+
+    for item in items:
+        title = escape(
+            str(item.get("title", "Signal"))
+        )
+        detail = escape(
+            str(item.get("detail", ""))
+        )
+        icon_name = escape(
+            str(
+                item.get(
+                    "icon",
+                    "check-circle",
+                )
+            )
+        )
+
+        cards.append(
+            '<div class="mb-list-card">'
+            '<div class="mb-list-icon">'
+            f'<i class="bi bi-{icon_name}"></i>'
+            '</div>'
+            f'<div><strong>{title}</strong>'
+            f'<p>{detail}</p></div>'
+            '</div>'
+        )
+
+    cards.append("</div>")
+
+    st.html("".join(cards))
 
 def step_card(number: str, title: str, text: str, icon_name: str) -> None:
     st.markdown(
