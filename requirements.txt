@@ -1,0 +1,7 @@
+# Runtime dependencies for Streamlit Community Cloud and local use.
+streamlit==1.60.0
+pandas==2.3.3
+numpy==1.26.4
+plotly==6.9.0
+tensorflow==2.21.0
+keras==3.15.1
