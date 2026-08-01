@@ -16,29 +16,68 @@ TEXT = "#CBD5E1"
 TITLE = "#F8FAFC"
 
 
-def style_figure(fig: go.Figure, *, height: int = 380, title: str | None = None) -> go.Figure:
-    fig.update_layout(
-        height=height,
-        title=title,
-        font=dict(family=PLOT_FONT, color=TEXT, size=12),
-        title_font=dict(size=17, color=TITLE),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        margin=dict(l=16, r=16, t=58 if title else 30, b=18),
-        hoverlabel=dict(bgcolor="#0F172A", bordercolor="#334155", font_color="#F8FAFC"),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
-            bgcolor="rgba(0,0,0,0)",
-        ),
-    )
-    fig.update_xaxes(gridcolor=GRID, zeroline=False, linecolor="rgba(148,163,184,0.15)")
-    fig.update_yaxes(gridcolor=GRID, zeroline=False, linecolor="rgba(148,163,184,0.15)")
-    return fig
+def style_figure(
+    fig: go.Figure,
+    *,
+    height: int = 380,
+    title: str | None = None,
+) -> go.Figure:
+    """Apply consistent styling to Plotly charts."""
 
+    layout: dict[str, object] = {
+        "height": height,
+        "font": {
+            "family": PLOT_FONT,
+            "color": TEXT,
+            "size": 12,
+        },
+        "paper_bgcolor": "rgba(0,0,0,0)",
+        "plot_bgcolor": "rgba(0,0,0,0)",
+        "margin": {
+            "l": 16,
+            "r": 16,
+            "t": 58 if title else 30,
+            "b": 18,
+        },
+        "hoverlabel": {
+            "bgcolor": "#0F172A",
+            "bordercolor": "#334155",
+            "font_color": "#F8FAFC",
+        },
+        "legend": {
+            "orientation": "h",
+            "yanchor": "bottom",
+            "y": 1.02,
+            "xanchor": "right",
+            "x": 1,
+            "bgcolor": "rgba(0,0,0,0)",
+        },
+    }
+
+    if title:
+        layout["title"] = {
+            "text": title,
+            "font": {
+                "size": 17,
+                "color": TITLE,
+            },
+        }
+
+    fig.update_layout(**layout)
+
+    fig.update_xaxes(
+        gridcolor=GRID,
+        zeroline=False,
+        linecolor="rgba(148,163,184,0.15)",
+    )
+
+    fig.update_yaxes(
+        gridcolor=GRID,
+        zeroline=False,
+        linecolor="rgba(148,163,184,0.15)",
+    )
+
+    return fig
 
 def probability_donut(probabilities: dict[str, float]) -> go.Figure:
     labels = list(CLASS_ORDER)
