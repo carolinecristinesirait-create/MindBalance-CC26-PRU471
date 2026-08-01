@@ -19,8 +19,8 @@ APP_TAGLINE = "AI-assisted anxiety risk screening and wellness intelligence"
 APP_VERSION = "2.0.0"
 TEAM_ID = "CC26-PRU471"
 TEAM_MEMBERS = (
-    "Vincentius Tanujaya",
     "Caroline Cristine Sirait",
+    "Vincentius Tanujaya",
     "Nabillah Indah Tsuraya",
 )
 
