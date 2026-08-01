@@ -133,24 +133,6 @@ def wellness_radar(scores: dict[str, int]) -> go.Figure:
     )
     return style_figure(fig, height=390)
 
-
-def category_distribution(df: pd.DataFrame) -> go.Figure:
-    counts = df["Anxiety_Category"].value_counts().reindex(CLASS_ORDER, fill_value=0)
-    pct = counts / max(counts.sum(), 1)
-    fig = go.Figure(
-        go.Bar(
-            x=list(CLASS_ORDER),
-            y=counts.values,
-            marker_color=[CLASS_COLORS[x] for x in CLASS_ORDER],
-            customdata=np.column_stack([pct.values]),
-            hovertemplate="%{x}: %{y:,} records (%{customdata[0]:.1%})<extra></extra>",
-            text=[f"{v:,}<br>{p:.1%}" for v, p in zip(counts.values, pct.values)],
-            textposition="outside",
-        )
-    )
-    return style_figure(fig, title="Anxiety category distribution", height=380)
-
-
 def anxiety_histogram(df: pd.DataFrame) -> go.Figure:
     fig = px.histogram(
         df,
