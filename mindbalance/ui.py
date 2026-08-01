@@ -105,30 +105,51 @@ def result_banner(level: str, score: float, confidence: float, description: str)
 
 
 def physiological_index_cards(indexes: list[dict[str, object]]) -> None:
-    """Render horizontal progress cards for the three key physiological indexes."""
+    """Render the three key physiological index cards."""
+
     cards = ["<div class='mb-index-stack'>"]
+
     for item in indexes:
         value = max(0, min(100, int(item["value"])))
         risk_direction = str(item.get("direction", "higher-risk"))
-        if risk_direction == "higher-protection":
-            color = "#2DD4BF" if value >= 70 else "#FBBF24" if value >= 45 else "#FB7185"
-        else:
-            color = "#FB7185" if value >= 65 else "#FBBF24" if value >= 40 else "#2DD4BF"
-        cards.append(
-            f"""
-            <div class="mb-index-card" style="--index-color:{color};--index-value:{value}%">
-              <div class="mb-index-head">
-                <span>{item['label']}</span>
-                <strong>{value}%</strong>
-              </div>
-              <div class="mb-index-track"><div class="mb-index-fill"></div></div>
-              <p>{item['detail']}</p>
-            </div>
-            """
-        )
-    cards.append("</div>")
-    st.markdown("".join(cards), unsafe_allow_html=True)
 
+        if risk_direction == "higher-protection":
+            color = (
+                "#2DD4BF"
+                if value >= 70
+                else "#FBBF24"
+                if value >= 45
+                else "#FB7185"
+            )
+        else:
+            color = (
+                "#FB7185"
+                if value >= 65
+                else "#FBBF24"
+                if value >= 40
+                else "#2DD4BF"
+            )
+
+        label = str(item["label"])
+        detail = str(item["detail"])
+
+        cards.append(
+            f'<div class="mb-index-card" '
+            f'style="--index-color:{color};--index-value:{value}%">'
+            f'<div class="mb-index-head">'
+            f'<span>{label}</span>'
+            f'<strong>{value}%</strong>'
+            f'</div>'
+            f'<div class="mb-index-track">'
+            f'<div class="mb-index-fill"></div>'
+            f'</div>'
+            f'<p>{detail}</p>'
+            f'</div>'
+        )
+
+    cards.append("</div>")
+
+    st.html("".join(cards))
 
 def guidance_panel(items: list[dict[str, str]], empty_text: str) -> None:
     """Render the prominent restorative-strategy panel used after assessment."""
