@@ -16,7 +16,7 @@ if str(ROOT) not in sys.path:
 
 st.set_page_config(
     page_title="MindBalance | AI Wellness Dashboard",
-    page_icon="🫶",
+    page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
