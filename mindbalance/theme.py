@@ -642,8 +642,24 @@ EXTRA_THEME_CSS = r"""
 /* More robust defaults across Streamlit versions */
 [data-testid="stAppViewContainer"] > .main { background: transparent; }
 [data-testid="stMainBlockContainer"], .block-container { max-width: 1240px; padding-top: 2.1rem; }
-[data-testid="stToolbar"], [data-testid="stDecoration"] { visibility: hidden; height: 0; }
-button, input, textarea, [data-baseweb="select"] { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+[data-testid="stDecoration"] {
+    visibility: hidden;
+    height: 0;
+}
+
+/* Tetap tampilkan tombol buka dan tutup sidebar */
+[data-testid="stToolbar"] {
+    visibility: visible !important;
+    height: auto !important;
+}
+
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="stSidebarCollapseButton"] {
+    visibility: visible !important;
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
 
 .mb-brand { display:flex; align-items:center; gap:12px; padding:4px 2px 18px; }
 .mb-brand-mark { width:42px; height:42px; border-radius:14px; display:grid; place-items:center; font-weight:900; font-size:20px; color:#042f2e; background:linear-gradient(135deg,#99F6E4,#60A5FA); box-shadow:0 10px 25px rgba(45,212,191,.2); }
