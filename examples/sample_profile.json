@@ -1,0 +1,20 @@
+{
+  "age": 24,
+  "gender": "Female",
+  "occupation": "Student",
+  "sleep_hours": 6.5,
+  "physical_activity": 2.5,
+  "caffeine": 180,
+  "alcohol": 0,
+  "smoking": "No",
+  "family_history": "No",
+  "stress_level": 6,
+  "heart_rate": 84,
+  "breathing_rate": 19,
+  "sweating_level": 3,
+  "dizziness": "No",
+  "medication": "No",
+  "therapy_sessions": 0,
+  "recent_life_event": "Yes",
+  "diet_quality": 6
+}
