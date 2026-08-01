@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="MindBalance | AI Wellness Dashboard",
     page_icon="🧠",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="locked",
     menu_items={
         "Get help": "https://docs.streamlit.io/",
         "Report a bug": "https://github.com/",
