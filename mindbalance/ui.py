@@ -37,7 +37,7 @@ def render_sidebar(model_available: bool, model_name: str | None = None) -> str:
               <div class="mb-small-kicker">PRIVACY</div>
               <div>Assessment data stay in this browser session unless you download a report.</div>
             </div>
-            <div class="mb-sidebar-footer">v{APP_VERSION} · Team CC26-PRU471</div>
+            <div class="mb-sidebar-footer">v{APP_VERSION} · Caroline Cristine Sirait</div>
             """,
             unsafe_allow_html=True,
         )
